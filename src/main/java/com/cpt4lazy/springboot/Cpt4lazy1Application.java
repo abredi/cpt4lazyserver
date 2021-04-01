@@ -8,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-
 import com.cpt4lazy.springboot.dao.AlumniRepository;
 import com.cpt4lazy.springboot.dao.UserRepository;
 import com.cpt4lazy.springboot.dao.UserRoleRepository;
@@ -18,11 +17,9 @@ import com.cpt4lazy.springboot.entity.User;
 import com.cpt4lazy.springboot.entity.UserRole;
 import com.cpt4lazy.springboot.service.SequenceGeneratorService;
 
-
-
 @SpringBootApplication
 public class Cpt4lazy1Application {
-	
+
 	@Autowired
 	private UserRepository userRepo;
 	
@@ -35,11 +32,9 @@ public class Cpt4lazy1Application {
 	@Autowired
 	private SequenceGeneratorService sequenceGenerator;
 	
-	
 	public static void main(String[] args) {
 		SpringApplication.run(Cpt4lazy1Application.class, args);
 	}
-	
 	
 	@Bean
     CommandLineRunner init(UserRoleRepository roleRepository) {
@@ -70,29 +65,25 @@ public class Cpt4lazy1Application {
     		u3.setId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
     		User u4 = new User("sstone@email.com", "password4", js2);
     		u4.setId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
-    		
-    		
+
     		userRepo.save(u1);
     		//userService.saveUser(u1);
-    		
+
     		userRepo.save(u2);
     		//userService.saveUser(u2);
-    		
+
     		userRepo.save(u3);
     		//userService.saveUser(u3);
-    		
+ 
     		userRepo.save(u4);
     		//userService.saveUser(u4);
-    		
+
     		System.out.println("****************************************");
     		List<User> users = userRepo.findAll();
-    		
+
     		for(User u : users) {
     			System.out.println(u.toString());
     		}
-
-            
         };
-
     }
 }
