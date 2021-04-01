@@ -22,6 +22,7 @@ public abstract class UserRole {
 	private String roleName;
 	
 	
+	
 	public UserRole(String name, String telephoneNumber, String address, String roleName) {
 		this.name = name;
 		this.telephoneNumber = telephoneNumber;

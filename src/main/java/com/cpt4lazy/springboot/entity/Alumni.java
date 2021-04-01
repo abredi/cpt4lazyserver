@@ -1,7 +1,10 @@
 package com.cpt4lazy.springboot.entity;
 
+import java.util.List;
+
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "userroles")
@@ -11,6 +14,8 @@ public class Alumni extends UserRole {
 	private String currentJob;
 	private String currentCompany;
 	
+	@DBRef
+	private List<Post> post;
 	
 	@PersistenceConstructor
 	public Alumni(String name, String telephoneNumber, String address, String roleName, String currentJob, String currentCompany) {
@@ -32,6 +37,14 @@ public class Alumni extends UserRole {
 		this.currentCompany = currentCompany;
 	}
 	
+	public List<Post> getPost() {
+		return post;
+	}
+
+	public void setPost(List<Post> post) {
+		this.post = post;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -49,6 +62,7 @@ public class Alumni extends UserRole {
 		sb.append(currentJob);
 		sb.append(", ");
 		sb.append(currentCompany);
+		sb.append(post);
 		sb.append("]");
 		
 		return sb.toString();

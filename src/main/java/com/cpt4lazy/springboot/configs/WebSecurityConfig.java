@@ -53,40 +53,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
     
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//    	http
-//        .authorizeRequests()
-//        .antMatchers("/").permitAll()
-//        .antMatchers("/login").permitAll()
-//        .antMatchers("/signup").permitAll()
-//        .and().csrf().disable();
-//       // .antMatchers("/dashboard/**").hasAuthority("USER").anyRequest()
-//        //.authenticated().and().csrf().disable().formLogin().successHandler(customizeAuthenticationSuccessHandler);
-//                  
-//    }
-    
     @Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(
-				 	"/signup**",
-	                "/js/**",
-	                "/css/**",
-	                "/img/**").permitAll()
-		.anyRequest().authenticated()
-		.and()
-		.csrf().disable()
-		.formLogin()
-		.loginPage("/login")
-		.permitAll()
-		.and()
-		.logout()
-		.invalidateHttpSession(true)
-		.clearAuthentication(true)
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/login?logout")
-		.permitAll();
-	}
+    protected void configure(HttpSecurity http) throws Exception {
+    	http
+        .authorizeRequests()
+        .antMatchers("/").permitAll()
+        .antMatchers("/login").permitAll()
+        .antMatchers("/signup").permitAll()
+        .and().csrf().disable();
+       // .antMatchers("/dashboard/**").hasAuthority("USER").anyRequest()
+        //.authenticated().and().csrf().disable().formLogin().successHandler(customizeAuthenticationSuccessHandler);
+                  
+    }
+    
+//    @Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http.authorizeRequests().antMatchers(
+//				 	"/signup**",
+//	                "/js/**",
+//	                "/css/**",
+//	                "/img/**").permitAll()
+//		.anyRequest().authenticated()
+//		.and()
+//		.csrf().disable()
+//		.formLogin()
+//		.loginPage("/login")
+//		.permitAll()
+//		.and()
+//		.logout()
+//		.invalidateHttpSession(true)
+//		.clearAuthentication(true)
+//		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//		.logoutSuccessUrl("/login?logout")
+//		.permitAll();
+//	}
     
     @Override
     public void configure(WebSecurity web) throws Exception {

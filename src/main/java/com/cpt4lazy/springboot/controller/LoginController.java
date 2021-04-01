@@ -20,7 +20,6 @@ public class LoginController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/login")
 	public ResponseEntity<User> authenticateUser(@RequestBody String json) {
-		System.out.println("hello");
 		JSONObject jsonObj = new JSONObject(json);
 		User user = userService.findUserByEmail(jsonObj.getString("email"));
 		if((user == null) || (!user.getPassword().equals(jsonObj.getString("password")))){
