@@ -2,6 +2,7 @@ package com.cpt4lazy.springboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,22 +25,6 @@ public class PostController {
 	@Autowired
 	private JobLinkPostService jobLinkService;
 	
-//	@RequestMapping(method=RequestMethod.POST, value="postjob/referal")
-//	public ResponseEntity<String> createPost1(@RequestBody String json) throws JsonMappingException, JsonProcessingException{
-//		System.out.println("here post controller");
-//		boolean success = false;
-//		success = jobReferService.createPost(json);
-//		return success ? ResponseEntity.ok("Successfully created post") : ResponseEntity.badRequest().body("Error creating your post");
-//	}
-//	
-//	@RequestMapping(method=RequestMethod.POST, value="postjob/joblink")
-//	public ResponseEntity<String> createPost2(@RequestBody String json) throws JsonMappingException, JsonProcessingException{
-//		System.out.println("here post controller");
-//		boolean success = false;
-//		success = jobLinkService.createPost(json);
-//		return success ? ResponseEntity.ok("Successfully created post") : ResponseEntity.badRequest().body("Error creating your post");
-//	}
-	
 	@RequestMapping(method=RequestMethod.POST, value="postjob/{type}")
 	public ResponseEntity<String> createPost(@RequestBody String json, @PathVariable String type) throws JsonMappingException, JsonProcessingException{
 		
@@ -54,6 +39,7 @@ public class PostController {
 		return success ? ResponseEntity.ok("Successfully created post") : ResponseEntity.badRequest().body("Error creating your post");
 	}
 	
+	
 	@RequestMapping(method=RequestMethod.DELETE, value="postjob/{type}/{id}")
 	public ResponseEntity<String> deletePost(@RequestBody String json, @PathVariable String type, @PathVariable String id){
 		
@@ -67,6 +53,8 @@ public class PostController {
 		
 		return success ? ResponseEntity.ok("Successfully created post") : ResponseEntity.badRequest().body("Error creating your post");
 	}
+	
+
 	@RequestMapping(method=RequestMethod.PUT, value="postjob/{type}/{id}")
 	public ResponseEntity<String> updatePost(@RequestBody String json, @PathVariable String type, @PathVariable String id){
 		
