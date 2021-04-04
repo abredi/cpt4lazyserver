@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
  *
  */
 @RestController
+@RequestMapping("/api")
 public class ExperienceController {
 	
 	@Autowired

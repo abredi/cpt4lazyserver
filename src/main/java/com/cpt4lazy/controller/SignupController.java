@@ -16,6 +16,7 @@ import com.cpt4lazy.service.CustomUserDetailService;
 import com.cpt4lazy.service.SequenceGeneratorService;
 
 @RestController
+@RequestMapping("/api")
 public class SignupController {
 
 	@Autowired

@@ -73,8 +73,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .cors().and().csrf().disable()
 		.exceptionHandling().authenticationEntryPoint(restAuthEntryPoint).and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-		.authorizeRequests().antMatchers("/login/**").permitAll()
-		.antMatchers("/signup/**").permitAll()
+		.authorizeRequests().antMatchers("/api/login/**").permitAll()
+		.antMatchers("/api/signup/**").permitAll()
+		.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
 		//.antMatchers("/postjob/**").access("hasAuthority('ALUMNI')")
 //		.antMatchers("/experience/**").access("hasRole('STUDENT')")
 		.anyRequest().authenticated();

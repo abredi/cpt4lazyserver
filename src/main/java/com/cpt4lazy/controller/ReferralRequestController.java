@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
+@RequestMapping("/api")
 public class ReferralRequestController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ReferralRequestController.class.getName()); 

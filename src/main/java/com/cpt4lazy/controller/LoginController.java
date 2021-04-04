@@ -23,6 +23,7 @@ import com.cpt4lazy.service.CustomUserDetailService;
  *
  */
 @RestController
+@RequestMapping("/api")
 public class LoginController {
 	
 	@Autowired
