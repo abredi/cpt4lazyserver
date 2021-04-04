@@ -43,7 +43,7 @@ public class ExperienceController {
 
     }
 
-    @DeleteMapping("experience/edit")
+    @DeleteMapping("/edit")
     public ResponseEntity<String> deleteExpereince(@RequestBody String json) throws JsonMappingException, JsonProcessingException {
 
         boolean success = expService.deleteExperience(json);
