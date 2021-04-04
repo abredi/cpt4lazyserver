@@ -1,8 +1,7 @@
 package com.cpt4lazy.cpt4lazyserver.service;
-import java.util.ArrayList;
-import java.util.List;
-
-
+import com.cpt4lazy.cpt4lazyserver.dao.UserRepository;
+import com.cpt4lazy.cpt4lazyserver.dao.UserRoleRepository;
+import com.cpt4lazy.cpt4lazyserver.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,9 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.cpt4lazy.cpt4lazyserver.dao.UserRepository;
-import com.cpt4lazy.cpt4lazyserver.dao.UserRoleRepository;
-import com.cpt4lazy.cpt4lazyserver.entity.User;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService{
@@ -40,7 +38,6 @@ public class CustomUserDetailService implements UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		System.out.println("loadUserByUsername");
 		User user = userRepo.findByEmail(email);
 		
 		if(user != null) {
