@@ -1,5 +1,7 @@
 package com.cpt4lazy.springboot.entity;
 
+import java.time.LocalDate;
+
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,8 +15,8 @@ public class JobLinkPost extends Post{
 	public JobLinkPost() {super();}
 	
 	@PersistenceConstructor
-	public JobLinkPost(String postText, String jobURL) {
-		super(postText);
+	public JobLinkPost(String postedBy, String postText, LocalDate datePosted, String jobURL) {
+		super(postedBy, datePosted, postText);
 		this.jobURL = jobURL;
 	}
 	
