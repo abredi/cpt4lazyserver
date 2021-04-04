@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "Cpt4lazy1Application.app.jwtSecret",
+    "type": "java.lang.String",
+    "description": "A description for 'Cpt4lazy1Application.app.jwtSecret'"
+  },
+  {
+    "name": "Cpt4lazy1Application.app.jwtExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'Cpt4lazy1Application.app.jwtExpirationMs'"
+  },
+  {
+    "name": "Cpt4lazy1Application.app.jwtExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'Cpt4lazy1Application.app.jwtExpirationMs'"
+  },
+  {
+    "name": "Cpt4lazy1Application.app.jwtSecret",
+    "type": "java.lang.String",
+    "description": "A description for 'Cpt4lazy1Application.app.jwtSecret'"
+  }
+]}
