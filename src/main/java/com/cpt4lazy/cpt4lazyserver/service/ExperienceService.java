@@ -85,8 +85,7 @@ public class ExperienceService {
 			logger.debug("Message: user is not Job seeker/student");
 			return false;
 		}
-		
-		JobSeeker js = (JobSeeker)user.getRole();
+
 		Optional<Experience> expTobeUpdated = expRepo.findById(id);
 		if(expTobeUpdated == null) {
 			logger.debug("Message: unable to find experience with the given id");
@@ -119,9 +118,7 @@ public class ExperienceService {
 	
 	private Experience parseExperience(String experience) throws JsonMappingException, JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
-		//objectMapper.registerModule(new JavaTimeModule());
 		Experience exp = objectMapper.readValue(experience, new TypeReference<Experience>(){});
-		//System.out.println(Arrays.toString(exp.toArray()));
 		return exp;
 	}
 
