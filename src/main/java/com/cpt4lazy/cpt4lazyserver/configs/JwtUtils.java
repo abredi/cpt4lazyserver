@@ -25,7 +25,13 @@ public class JwtUtils {
 
 	@Value("${Cpt4lazy1Application.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
-
+	
+	/**
+	 * Generate the jwt token based on the application secret and the user email using HS512
+	 * @param authentication
+	 * @return
+	 * @author Carl Mapada
+	 */
 	public String generateJwtToken(Authentication authentication) {
 		return Jwts.builder()
 				.setSubject((authentication.getName()))
@@ -35,6 +41,12 @@ public class JwtUtils {
 				.compact();
 	}
 	
+	/**
+	 * Retrieve the user email from the JWT token
+	 * @param token
+	 * @return
+	 * @author Carl Mapada
+	 */
 	public String getUserEmailFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}

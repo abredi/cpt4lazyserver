@@ -42,8 +42,8 @@ public class CustomUserDetailService implements UserDetailsService{
 		
 		if(user != null) {
 			List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
-			//auths.add(new SimpleGrantedAuthority(user.getRole().getRoleName()));
-			auths.add(new SimpleGrantedAuthority("USER"));
+			auths.add(new SimpleGrantedAuthority(user.getRole().getRoleName()));
+			//auths.add(new SimpleGrantedAuthority("USER"));
 			return buildUserForAuthentication(user, auths);
 		}
 		else {

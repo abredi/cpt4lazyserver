@@ -8,16 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.util.StringUtils;
 
 import com.cpt4lazy.cpt4lazyserver.service.CustomUserDetailService;
+
+import org.springframework.util.StringUtils;
 
 public class AuthTokenFilter extends OncePerRequestFilter{
 
@@ -27,7 +26,9 @@ public class AuthTokenFilter extends OncePerRequestFilter{
 	@Autowired
 	private CustomUserDetailService userService;
 	
-	
+	/**
+	 * This will perform filtering of the request. Validate the access token and perform authentication
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -54,6 +55,12 @@ public class AuthTokenFilter extends OncePerRequestFilter{
 		
 	}
 	
+	/**
+	 * This will perform parsing of the value of the Authorization header
+	 * @param request
+	 * @return
+	 * @author Carl Mapada
+	 */ 
 	private String parseJwt(HttpServletRequest request) {
 	    String headerAuth = request.getHeader("Authorization");
 

@@ -1,17 +1,16 @@
 package com.cpt4lazy.cpt4lazyserver.controller;
 
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import com.cpt4lazy.cpt4lazyserver.entity.Alumni;
 import com.cpt4lazy.cpt4lazyserver.entity.JobSeeker;
 import com.cpt4lazy.cpt4lazyserver.entity.User;
 import com.cpt4lazy.cpt4lazyserver.entity.UserRole;
 import com.cpt4lazy.cpt4lazyserver.service.CustomUserDetailService;
 import com.cpt4lazy.cpt4lazyserver.service.SequenceGeneratorService;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SignupController {
@@ -58,7 +57,7 @@ public class SignupController {
 			jobSeeker.setId(sequenceGenerator.generateSequence(UserRole.SEQUENCE_NAME));
 			user.setRole(jobSeeker);
 		}
-
+		System.out.println("user" + user);
 		userService.saveUser(user);
 		return ResponseEntity.ok("User has been registered successfully.");
 			

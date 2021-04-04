@@ -10,6 +10,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+/**
+ * Rest entry point. Check if user has valid authorization
+ * @author cmmap
+ *
+ */
 @Component
 public class RestAuthEntryPoint implements AuthenticationEntryPoint {
 

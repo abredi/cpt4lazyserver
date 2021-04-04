@@ -15,10 +15,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 import com.cpt4lazy.cpt4lazyserver.service.CustomUserDetailService;
 
 
+/**
+ * Web Security Configuration of the Application
+ * @author cmmap
+ *
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -69,7 +73,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 		.authorizeRequests().antMatchers("/api/login/**").permitAll()
 		.antMatchers("/api/signup/**").permitAll()
+		.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
+		//.antMatchers("/postjob/**").access("hasAuthority('ALUMNI')")
+//		.antMatchers("/experience/**").access("hasRole('STUDENT')")
 		.anyRequest().authenticated();
+        
         
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         

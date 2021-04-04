@@ -8,11 +8,12 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
+/***
+ * Custom Deserialization for the LocalDate type
+ * @author cmmap
+ *
+ */
 public class LocalDateDeserializer extends StdDeserializer<LocalDate> {
-
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	protected LocalDateDeserializer() {

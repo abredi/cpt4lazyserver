@@ -3,6 +3,7 @@ package com.cpt4lazy.cpt4lazyserver.listener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
+
 import com.cpt4lazy.cpt4lazyserver.entity.UserRole;
 import com.cpt4lazy.cpt4lazyserver.service.SequenceGeneratorService;
 

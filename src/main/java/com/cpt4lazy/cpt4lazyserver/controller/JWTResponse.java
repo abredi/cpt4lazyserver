@@ -1,7 +1,11 @@
 package com.cpt4lazy.cpt4lazyserver.controller;
 
 import com.cpt4lazy.cpt4lazyserver.entity.User;
-
+/**
+ * Custom Response thrown after user login
+ * @author cmmap
+ *
+ */
 public class JWTResponse {
 	
 	private User user;

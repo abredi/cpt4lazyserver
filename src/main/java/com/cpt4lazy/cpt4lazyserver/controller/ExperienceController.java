@@ -1,53 +1,53 @@
 package com.cpt4lazy.cpt4lazyserver.controller;
 
-import com.cpt4lazy.cpt4lazyserver.entity.User;
-import com.cpt4lazy.cpt4lazyserver.service.CustomUserDetailService;
+import com.cpt4lazy.cpt4lazyserver.entity.Experience;
 import com.cpt4lazy.cpt4lazyserver.service.ExperienceService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+/**
+ * Rest Controller for "Experience" related request
+ * @author cmmap
+ *
+ */
 @RestController
 @RequestMapping("/experience")
 public class ExperienceController {
-
-    @Autowired
-    private CustomUserDetailService userService;
-
-    @Autowired
-    private ExperienceService expService;
-
-    @PostMapping("/edit")
-    public ResponseEntity<String> createExpereince(@RequestBody String json) throws JsonMappingException, JsonProcessingException {
-
-        boolean success = false;
-        JSONObject jsonObj = new JSONObject(json);
-        User user = userService.findUserByEmail(jsonObj.getString("email"));
-
-        if (user != null) {
-            success = expService.createExperience(user, jsonObj.getJSONArray("experience").toString());
-        }
-
-        return success ? ResponseEntity.ok("Successfully added experience/s") : ResponseEntity.badRequest().body("Error adding your experience/s");
-
-    }
-
-    @PutMapping("/edit")
-    public ResponseEntity<String> updateExpereince(@RequestBody String json) throws JsonMappingException, JsonProcessingException {
-
-        boolean success = expService.updateExperience(json);
-        return success ? ResponseEntity.ok("Successfully added experience/s") : ResponseEntity.badRequest().body("Error adding your experience/s");
-
-    }
-
-    @DeleteMapping("experience/edit")
-    public ResponseEntity<String> deleteExpereince(@RequestBody String json) throws JsonMappingException, JsonProcessingException {
-
-        boolean success = expService.deleteExperience(json);
-        return success ? ResponseEntity.ok("Successfully added experience/s") : ResponseEntity.badRequest().body("Error adding your experience/s");
-
-    }
+	
+	@Autowired
+	private ExperienceService expService;
+	
+	
+	@GetMapping("/")
+	public ResponseEntity<?> viewExpereince(@RequestHeader("Authorization") String token) throws JsonMappingException, JsonProcessingException {
+		List<Experience> exp = expService.viewExpereince(token);
+		return exp!=null ? ResponseEntity.ok(exp) : ResponseEntity.badRequest().body("Error retrieving your experience/s");
+	}
+	
+	@PostMapping("/edit")
+	public ResponseEntity<String> createExpereince(@RequestBody String experience, @RequestHeader("Authorization") String token) throws JsonMappingException, JsonProcessingException {
+		
+		boolean success = expService.createExperience(experience, token);
+		return success ? ResponseEntity.ok("Successfully added experience/s") : ResponseEntity.badRequest().body("Error adding your experience/s");
+		
+	}
+	
+	@PutMapping("/edit/{id}")
+	public ResponseEntity<String> updateExpereince(@RequestBody String experience, @PathVariable int id, @RequestHeader("Authorization") String token) throws JsonMappingException, JsonProcessingException {
+		
+		boolean success = expService.updateExperience(experience, id, token);
+		return success ? ResponseEntity.ok("Successfully updated experience/s") : ResponseEntity.badRequest().body("Error updating your experience/s");
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<String> deleteExperience(@PathVariable int id, @RequestHeader("Authorization") String token) throws JsonMappingException, JsonProcessingException {
+		boolean success = expService.deleteExperience(id, token);
+		return success ? ResponseEntity.ok("Successfully deleted experience/s") : ResponseEntity.badRequest().body("Error deleting your experience/s");
+		
+	}
 }
