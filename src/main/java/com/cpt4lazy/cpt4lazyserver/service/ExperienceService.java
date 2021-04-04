@@ -61,7 +61,6 @@ public class ExperienceService {
 	
 	public boolean updateExperience(String json) throws JsonMappingException, JsonProcessingException {
 		
-		//Check if json string is empty
 		if(json.isEmpty())
 			return false;
 		
@@ -95,7 +94,6 @@ public class ExperienceService {
 	}
 
 	public boolean deleteExperience(String json) throws JsonMappingException, JsonProcessingException {
-		//Check if json string is empty
 		if(json.isEmpty())
 			return false;
 				
@@ -139,9 +137,7 @@ public class ExperienceService {
 	
 	private List<Experience> parseExperience(String experience) throws JsonMappingException, JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
-		//objectMapper.registerModule(new JavaTimeModule());
 		List<Experience> exp = objectMapper.readValue(experience, new TypeReference<ArrayList<Experience>>(){});
-		System.out.println(Arrays.toString(exp.toArray()));
 		return exp;
 	}
 

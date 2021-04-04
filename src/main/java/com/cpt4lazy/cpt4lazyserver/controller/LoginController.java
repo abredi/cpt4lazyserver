@@ -19,50 +19,30 @@ import com.cpt4lazy.cpt4lazyserver.service.CustomUserDetailService;
 
 @RestController
 public class LoginController {
-	
-	@Autowired
-	private CustomUserDetailService userService;
-	
-	@Autowired
-	private AuthenticationManager authenticationManager;
-	
-	@Autowired
-	JwtUtils jwtUtils;
-	
-//	@RequestMapping(method=RequestMethod.POST, value="/login")
-//	public ResponseEntity<User> authenticateUser(@RequestBody String json) {
-//		JSONObject jsonObj = new JSONObject(json);
-//		User user = userService.findUserByEmail(jsonObj.getString("email"));
-//		if((user == null) || (!user.getPassword().equals(jsonObj.getString("password")))){
-//			return ResponseEntity.badRequest()
-//					.body(null);	        
-//		}
-//
-//		return ResponseEntity.ok(user);	 
-//	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="/login")
-	public ResponseEntity<?> authenticateUser(@RequestBody String json) {
-		JSONObject jsonObj = new JSONObject(json);
-		User user = userService.findUserByEmail(jsonObj.getString("email"));
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(jsonObj.get("email"), jsonObj.get("password")));
 
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken(authentication);
-		System.out.println("jwt: " + jwt);
-//		UserDetails userDetails = (UserDetails) authentication.getPrincipal();		
-//		List<String> roles = userDetails.getAuthorities().stream()
-//				.map(item -> item.getAuthority())
-//				.collect(Collectors.toList());
+    @Autowired
+    private CustomUserDetailService userService;
 
-//		return ResponseEntity.ok(new JwtResponse(jwt, 
-//				 user.getId(), 
-//				 user.getEmail(), 
-//				 roles));
-		return ResponseEntity.ok(new JWTResponse(user, jwt));
-		 
-	}
-	
-	
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    JwtUtils jwtUtils;
+
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
+    public ResponseEntity<?> authenticateUser(@RequestBody String json) {
+        JSONObject jsonObj = new JSONObject(json);
+        User user = userService.findUserByEmail(jsonObj.getString("email"));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(jsonObj.get("email"), jsonObj.get("password")));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+        System.out.println("jwt: " + jwt);
+
+        return ResponseEntity.ok(new JWTResponse(user, jwt));
+
+    }
+
+
 }

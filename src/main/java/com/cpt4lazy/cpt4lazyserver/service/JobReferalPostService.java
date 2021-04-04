@@ -34,7 +34,7 @@ public class JobReferalPostService {
 	@Autowired
 	private SequenceGeneratorService sequenceGenerator;
 
-	public boolean createPost(String json) throws JsonMappingException, JsonProcessingException {
+	public boolean createPost(String json) throws JsonProcessingException {
 		
 		JSONObject jsonObj = new JSONObject(json);
 		User user = userService.findUserByEmail(jsonObj.getString("email"));
@@ -67,17 +67,14 @@ public class JobReferalPostService {
 	private List<JobReferalPost> parsePost(String post) throws JsonMappingException, JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<JobReferalPost> p = objectMapper.readValue(post, new TypeReference<ArrayList<JobReferalPost>>(){});
-		System.out.println(Arrays.toString(p.toArray()));
 		return p;
 	}
 
 	public boolean deletePost(String json, String id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public boolean updatePost(String json, String id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

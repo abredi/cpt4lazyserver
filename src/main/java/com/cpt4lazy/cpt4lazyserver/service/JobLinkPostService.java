@@ -78,7 +78,6 @@ public class JobLinkPostService {
 	}
 
 	public boolean updatePost(String json, String id) {
-		//linkPostRepo.
 		return false;
 	}
 	

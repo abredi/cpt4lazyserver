@@ -29,12 +29,10 @@ public class SignupController {
 		
 		User user = new User();
 		JSONObject jsonObj = new JSONObject(json);
-		//user.setId(jsonObj.getString("id"));
 		user.setId(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
 		user.setEmail(jsonObj.getString("email"));
 		user.setPassword(jsonObj.getString("password"));
 		
-		//check if user is already registered
 		User userExists = userService.findUserByEmail(user.getEmail());
 		if(userExists != null) {
 			return ResponseEntity.badRequest()
@@ -42,8 +40,7 @@ public class SignupController {
 		}
 
 		JSONObject roleObject = jsonObj.getJSONObject("role");
-		//String id = roleObject.getString("id");
-		
+
 		String name = roleObject.getString("name");
 		String telephoneNumber = roleObject.getString("telephoneNumber");
 		String address = roleObject.getString("address");
@@ -63,7 +60,7 @@ public class SignupController {
 			jobSeeker.setId(sequenceGenerator.generateSequence(UserRole.SEQUENCE_NAME));
 			user.setRole(jobSeeker);
 		}
-		System.out.println("user" + user);
+
 		userService.saveUser(user);
 		return ResponseEntity.ok("User has been registered successfully.");
 			
