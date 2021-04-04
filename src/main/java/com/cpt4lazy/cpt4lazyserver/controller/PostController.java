@@ -1,19 +1,14 @@
 package com.cpt4lazy.cpt4lazyserver.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.cpt4lazy.cpt4lazyserver.service.JobLinkPostService;
 import com.cpt4lazy.cpt4lazyserver.service.JobReferalPostService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+@RequestMapping("/postjob")
 @RestController
 public class PostController {
 		
@@ -23,7 +18,7 @@ public class PostController {
 	@Autowired
 	private JobLinkPostService jobLinkService;
 	
-	@RequestMapping(method=RequestMethod.POST, value="postjob/{type}")
+	@PostMapping( value="{type}")
 	public ResponseEntity<String> createPost(@RequestBody String json, @PathVariable String type) throws JsonMappingException, JsonProcessingException{
 		
 		boolean success = false;
@@ -38,7 +33,7 @@ public class PostController {
 	}
 	
 	
-	@RequestMapping(method=RequestMethod.DELETE, value="postjob/{type}/{id}")
+	@DeleteMapping("/{type}/{id}")
 	public ResponseEntity<String> deletePost(@RequestBody String json, @PathVariable String type, @PathVariable String id){
 		
 		boolean success = false;
@@ -53,7 +48,7 @@ public class PostController {
 	}
 	
 
-	@RequestMapping(method=RequestMethod.PUT, value="postjob/{type}/{id}")
+	@PutMapping("/{type}/{id}")
 	public ResponseEntity<String> updatePost(@RequestBody String json, @PathVariable String type, @PathVariable String id){
 		
 		boolean success = false;

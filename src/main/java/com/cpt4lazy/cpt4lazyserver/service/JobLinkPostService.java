@@ -1,13 +1,5 @@
 package com.cpt4lazy.cpt4lazyserver.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.cpt4lazy.cpt4lazyserver.dao.JobLinkPostRepository;
 import com.cpt4lazy.cpt4lazyserver.dao.UserRoleRepository;
 import com.cpt4lazy.cpt4lazyserver.entity.Alumni;
@@ -16,8 +8,13 @@ import com.cpt4lazy.cpt4lazyserver.entity.Post;
 import com.cpt4lazy.cpt4lazyserver.entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class JobLinkPostService {
@@ -34,7 +31,7 @@ public class JobLinkPostService {
 	@Autowired
 	private SequenceGeneratorService sequenceGenerator;
 
-	public boolean createPost(String json) throws JsonMappingException, JsonProcessingException {
+	public boolean createPost(String json) throws JsonProcessingException {
 		
 		JSONObject jsonObj = new JSONObject(json);
 		User user = userService.findUserByEmail(jsonObj.getString("email"));
@@ -64,10 +61,9 @@ public class JobLinkPostService {
 		return true;
 	}
 	
-	private List<JobLinkPost> parsePost(String post) throws JsonMappingException, JsonProcessingException {
+	private List<JobLinkPost> parsePost(String post) throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<JobLinkPost> p = objectMapper.readValue(post, new TypeReference<ArrayList<JobLinkPost>>(){});
-		System.out.println(Arrays.toString(p.toArray()));
 		return p;
 	}
 

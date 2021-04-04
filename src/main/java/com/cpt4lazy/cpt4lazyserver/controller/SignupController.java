@@ -1,19 +1,17 @@
 package com.cpt4lazy.cpt4lazyserver.controller;
 
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.cpt4lazy.cpt4lazyserver.entity.Alumni;
 import com.cpt4lazy.cpt4lazyserver.entity.JobSeeker;
 import com.cpt4lazy.cpt4lazyserver.entity.User;
 import com.cpt4lazy.cpt4lazyserver.entity.UserRole;
 import com.cpt4lazy.cpt4lazyserver.service.CustomUserDetailService;
 import com.cpt4lazy.cpt4lazyserver.service.SequenceGeneratorService;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SignupController {
@@ -24,7 +22,7 @@ public class SignupController {
 	@Autowired
 	private SequenceGeneratorService sequenceGenerator;
 	
-	@RequestMapping(method=RequestMethod.POST, value="/signup")
+	@PostMapping("/signup")
 	public ResponseEntity<String> createNewUser(@RequestBody String json) {
 		
 		User user = new User();
