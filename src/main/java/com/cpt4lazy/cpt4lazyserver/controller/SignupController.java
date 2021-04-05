@@ -57,7 +57,7 @@ public class SignupController {
 			jobSeeker.setId(sequenceGenerator.generateSequence(UserRole.SEQUENCE_NAME));
 			user.setRole(jobSeeker);
 		}
-		System.out.println("user" + user);
+
 		userService.saveUser(user);
 		return ResponseEntity.ok("User has been registered successfully.");
 			

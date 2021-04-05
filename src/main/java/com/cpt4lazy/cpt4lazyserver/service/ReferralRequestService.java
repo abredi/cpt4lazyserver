@@ -1,14 +1,5 @@
 package com.cpt4lazy.cpt4lazyserver.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import com.cpt4lazy.cpt4lazyserver.dao.JobReferalPostRepository;
 import com.cpt4lazy.cpt4lazyserver.dao.ReferralRequestRepository;
 import com.cpt4lazy.cpt4lazyserver.entity.JobReferalPost;
@@ -19,6 +10,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReferralRequestService {
@@ -55,7 +54,8 @@ public class ReferralRequestService {
 			jrp.setReferralRequest(reqList);
 			referPostRepo.save(jrp);
 			
-		} 
+		}
+
 		catch (JsonMappingException e){
 			logger.error("Error on mapping json string to JobReferalPost object: {}", e.getMessage());
 			return false;
@@ -68,7 +68,7 @@ public class ReferralRequestService {
 		return true;
 	}
 	
-	private ReferralRequest parseReferralRequest(String referralRequest) throws JsonMappingException, JsonProcessingException {
+	private ReferralRequest parseReferralRequest(String referralRequest) throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		ReferralRequest refRequest = objectMapper.readValue(referralRequest, new TypeReference<ReferralRequest>(){});
 		return refRequest;
