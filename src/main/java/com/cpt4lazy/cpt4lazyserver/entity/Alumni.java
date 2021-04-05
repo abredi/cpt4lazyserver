@@ -11,9 +11,6 @@ public class Alumni extends UserRole {
 	private String currentJob;
 	private String currentCompany;
 	
-//	@DBRef
-//	private List<Post> post;
-	
 	@PersistenceConstructor
 	public Alumni(String name, String telephoneNumber, String address, String roleName, String currentJob, String currentCompany) {
 		super(name, telephoneNumber, address, roleName);
@@ -33,14 +30,6 @@ public class Alumni extends UserRole {
 	public void setCurrentCompany(String currentCompany) {
 		this.currentCompany = currentCompany;
 	}
-	
-//	public List<Post> getPost() {
-//		return post;
-//	}
-//
-//	public void setPost(List<Post> post) {
-//		this.post = post;
-//	}
 
 	@Override
 	public String toString() {

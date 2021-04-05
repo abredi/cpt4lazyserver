@@ -1,14 +1,5 @@
 package com.cpt4lazy.cpt4lazyserver.service;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.cpt4lazy.cpt4lazyserver.dao.JobReferalPostRepository;
 import com.cpt4lazy.cpt4lazyserver.dao.PostRepository;
 import com.cpt4lazy.cpt4lazyserver.dao.ReferralRequestRepository;
@@ -21,6 +12,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JobReferalPostService {
@@ -68,7 +67,7 @@ public class JobReferalPostService {
 		jrPost.setDatePosted(LocalDate.now());
 		jrPost.setPostedby(user.getEmail());
 		jrPost.setId(sequenceGenerator.generateSequence(Post.SEQUENCE_NAME));
-			
+
 		postRepo.save(jrPost);
 		return true;
 	}
@@ -163,7 +162,7 @@ public class JobReferalPostService {
 		try {
 			ReferralRequest rr = parseReferralRequest(referalRequest);
 			if(refRequest != null) {
-				rr.setId(id);	
+				rr.setId(id);
 				refRequestRepo.save(rr);
 				return true;
 			}

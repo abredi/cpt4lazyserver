@@ -22,11 +22,3 @@ services:
       - 9091:8080
     links:
       - db
-
-  lazy-ui:
-    build: ./lazy-ui
-    container_name: lazy-ui
-    ports:
-      - 3000:3000
-    links:
-      - lazy-server

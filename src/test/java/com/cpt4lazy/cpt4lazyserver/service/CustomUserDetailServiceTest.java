@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -52,5 +52,11 @@ import static org.mockito.BDDMockito.given;
         assertNotEquals(customUserDetailService.findUserByEmail("jdoe@email.com"), user2.getEmail());
     }
 
-
+    @Test
+    void loadUserByUsername() {
+       given(userRepo.findByEmail("jdoe@email.com")).willReturn(null);
+       assertThrows(UsernameNotFoundException.class,() ->{
+          customUserDetailService.loadUserByUsername("");
+       } );
+    }
 }
