@@ -1,24 +1,18 @@
 package com.cpt4lazy.cpt4lazyserver.controller;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.cpt4lazy.cpt4lazyserver.entity.JobLinkPost;
 import com.cpt4lazy.cpt4lazyserver.entity.JobReferalPost;
 import com.cpt4lazy.cpt4lazyserver.service.JobLinkPostService;
 import com.cpt4lazy.cpt4lazyserver.service.JobReferalPostService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * RestController for Alumni related "Post (Referral and Link post)" 
@@ -26,7 +20,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
  *
  */
 @RestController
-@RequestMapping("/api")
 public class PostController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class.getName());

@@ -23,7 +23,7 @@ public class JobController {
     private String perPage;
     private static final String BASE_URL = "https://api.adzuna.com/v1/api/jobs/us/search/1";
 
-    @GetMapping(value = "jobs", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/jobs", produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<JobPost> getJobs(@RequestParam(defaultValue = "") String what, @RequestParam(defaultValue = "") String where) {
         return WebClient.create(BASE_URL)
                 .get()

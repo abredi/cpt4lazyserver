@@ -45,7 +45,7 @@ public class LoginController {
 		//once user is successfully authenticated, a JWT token will be generated and will be passed
 		//as part of the response
 		String jwt = jwtUtils.generateJwtToken(authentication);
-	
+
 		return ResponseEntity.ok(new JWTResponse(user, jwt));
 	}	
 }
