@@ -3,9 +3,6 @@ services:
   db:
     image: mongo:3
     restart: always
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: root
-#      MONGO_INITDB_ROOT_PASSWORD: n00pP@$$
     container_name: "db"
     ports:
       - 27017:27017
@@ -13,9 +10,6 @@ services:
     environment:
       - DB_SERVER=db
       - LAZY_DB=cpt4lazyDB
-#      - DB_USER=root
-#      - DB_PORT=27017
-#      - DB_PASSWORD=n00pP@$$
     build: .
     container_name: cpt4lazyserver
     ports:
@@ -23,10 +17,10 @@ services:
     links:
       - db
 
-  lazy-ui:
-    build: ./lazy-ui
-    container_name: lazy-ui
-    ports:
-      - 3000:3000
-    links:
-      - lazy-server
+#  lazy-ui:
+#    build: ./lazy-ui
+#    container_name: lazy-ui
+#    ports:
+#      - 3000:3000
+#    links:
+#      - lazy-server
