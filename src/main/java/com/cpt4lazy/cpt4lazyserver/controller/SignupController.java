@@ -9,6 +9,7 @@ import com.cpt4lazy.cpt4lazyserver.entity.Alumni;
 import com.cpt4lazy.cpt4lazyserver.entity.JobSeeker;
 import com.cpt4lazy.cpt4lazyserver.entity.User;
 import com.cpt4lazy.cpt4lazyserver.entity.UserRole;
+import com.cpt4lazy.cpt4lazyserver.helper.CPT4LazyUtility;
 import com.cpt4lazy.cpt4lazyserver.service.CustomUserDetailService;
 import com.cpt4lazy.cpt4lazyserver.service.SequenceGeneratorService;
 
@@ -20,6 +21,9 @@ public class SignupController {
 	
 	@Autowired
 	private SequenceGeneratorService sequenceGenerator;
+	
+	@Autowired
+	private CPT4LazyUtility utility;
 	
 	@PostMapping("/signup")
 	public ResponseEntity<String> createNewUser(@RequestBody String json) {
@@ -61,5 +65,13 @@ public class SignupController {
 		userService.saveUser(user);
 		return ResponseEntity.ok("User has been registered successfully.");
 			
+	}
+	
+	@GetMapping("/profile")
+	public ResponseEntity<?> viewProfile(@RequestHeader("Authorization") String token) {
+		
+		String email = utility.getEmailFromToken(token);
+		User user = userService.findUserByEmail(email);
+		return user != null ? ResponseEntity.ok(user) : ResponseEntity.badRequest().body("message: Error viewing profile");
 	}
 }

@@ -119,9 +119,8 @@ public class PostController {
 	
 	@RequestMapping(method=RequestMethod.PUT, value="postjob/referral/update/{id}")
 	public ResponseEntity<String> updatePostReferralRequest(@RequestBody String referalRequest, @PathVariable int id, @RequestHeader("Authorization") String token){
-		boolean success = false;
-		jobReferService.updatePostReferralRequest(referalRequest, id, token);
-		return success ? ResponseEntity.ok("message: Successfully updated post") : ResponseEntity.badRequest().body("Error: Unable to update your post. You may not have rights to update.");
+		boolean success = jobReferService.updatePostReferralRequest(referalRequest, id, token);
+		return success ? ResponseEntity.ok("message: Successfully updated the referral request") : ResponseEntity.badRequest().body("Error: Unable to update your post. You may not have rights to update.");
 	}
 	
 }
