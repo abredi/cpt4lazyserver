@@ -148,7 +148,6 @@ public class JobReferalPostService {
 	}
 	
 	public boolean updatePostReferralRequest(String referalRequest, int id, String token) {
-		System.out.println("pdatePostReferralRequest");
 		
 		String email = utility.getEmailFromToken(token);
 		User user = userService.findUserByEmail(email);
@@ -156,8 +155,6 @@ public class JobReferalPostService {
 			System.out.println(utility.isALUMNI(user));
 			return false;
 		}
-		
-		System.out.println(email);
 		
 		Optional<ReferralRequest> refRequest = refRequestRepo.findById(id);
 		try {
