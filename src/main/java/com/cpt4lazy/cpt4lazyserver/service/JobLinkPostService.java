@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class JobLinkPostService {
 		if(jlp != null)
 			linkPostRepo.delete(jlp.get());
 		
-		return linkPostRepo.findById(id) == null ? true : false;
+		return true;
 	}
 
 	public boolean updatePost(String post, int id, String token) {

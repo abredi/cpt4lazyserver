@@ -23,7 +23,7 @@ public class ExperienceController {
 	private ExperienceService expService;
 	
 	
-	@GetMapping("/")
+	@GetMapping()
 	public ResponseEntity<?> viewExpereince(@RequestHeader("Authorization") String token) throws JsonMappingException, JsonProcessingException {
 		List<Experience> exp = expService.viewExpereince(token);
 		return exp!=null ? ResponseEntity.ok(exp) : ResponseEntity.badRequest().body("Error retrieving your experience/s");

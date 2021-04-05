@@ -85,7 +85,7 @@ public class JobReferalPostService {
 		if(jrp != null)
 			postRepo.delete(jrp.get());
 		
-		return postRepo.findById(id) == null ? true : false;	
+		return true;	
 	}
 
 	/***
@@ -148,11 +148,16 @@ public class JobReferalPostService {
 	}
 	
 	public boolean updatePostReferralRequest(String referalRequest, int id, String token) {
+		System.out.println("pdatePostReferralRequest");
 		
 		String email = utility.getEmailFromToken(token);
 		User user = userService.findUserByEmail(email);
-		if(!utility.isALUMNI(user)) 
+		if(!utility.isALUMNI(user)) {
+			System.out.println(utility.isALUMNI(user));
 			return false;
+		}
+		
+		System.out.println(email);
 		
 		Optional<ReferralRequest> refRequest = refRequestRepo.findById(id);
 		try {
@@ -162,6 +167,7 @@ public class JobReferalPostService {
 				refRequestRepo.save(rr);
 				return true;
 			}
+			System.out.println("refRequest is null");
 		} 
 		catch (JsonMappingException e){
 			logger.error("Error on mapping json string to ReferralRequest object: {}", e.getMessage());
