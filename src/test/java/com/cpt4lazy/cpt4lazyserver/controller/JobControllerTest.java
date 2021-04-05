@@ -27,12 +27,10 @@ class JobControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-
     @Test
     void getJobs() {
-
-        ResponseEntity<JobPost[]> entity = restTemplate.withBasicAuth("ncage@email.com","password3").getForEntity("/jobs?what=Chicago", JobPost[].class);
-
+        ResponseEntity<JobPost[]> entity = restTemplate.withBasicAuth("ncage@email.com","password3")
+                .getForEntity("/jobs?what=Chicago", JobPost[].class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 }

@@ -25,7 +25,9 @@ public class JobController {
 
     @GetMapping(value = "/jobs", produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<JobPost> getJobs(@RequestParam(defaultValue = "") String what, @RequestParam(defaultValue = "") String where) {
-
+        if (what.length() > 128 || where.length() > 128) {
+            return null;
+        }
         return WebClient.create(BASE_URL)
                 .get()
                 .uri("?app_id={adzunAppId}&app_key={adzunKey}&results_per_page={perPage}&what=/{what}&where={where}", adzunAppId, adzunKey, perPage, what,where)

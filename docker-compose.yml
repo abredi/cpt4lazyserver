@@ -19,6 +19,6 @@ services:
     build: .
     container_name: cpt4lazyserver
     ports:
-      - 9091:8080
+      - 8080:8080
     links:
       - db
