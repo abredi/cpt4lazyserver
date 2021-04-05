@@ -44,9 +44,10 @@ public class ReferralRequestService {
 		try {
 			ReferralRequest refRequest = parseReferralRequest(referralRequest);
 			Optional<JobReferalPost> refPost = referPostRepo.findById(referalId);
-			JobReferalPost jrp = refPost.get();
-			if(jrp == null)
+
+			if(refPost.isEmpty())
 				return false;
+			JobReferalPost jrp = refPost.get();
 			List<ReferralRequest> reqList = jrp.getReferralRequest() == null ? new ArrayList<>() : new ArrayList<>(jrp.getReferralRequest());
 			refRequest.setId(sequenceGenerator.generateSequence(ReferralRequest.SEQUENCE_NAME));
 			reqList.add(refRequest);

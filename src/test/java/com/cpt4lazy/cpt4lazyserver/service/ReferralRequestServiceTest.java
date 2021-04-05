@@ -3,9 +3,7 @@ package com.cpt4lazy.cpt4lazyserver.service;
 import com.cpt4lazy.cpt4lazyserver.dao.JobReferalPostRepository;
 import com.cpt4lazy.cpt4lazyserver.dao.ReferralRequestRepository;
 import com.cpt4lazy.cpt4lazyserver.entity.JobReferalPost;
-import com.cpt4lazy.cpt4lazyserver.entity.JobSeeker;
 import com.cpt4lazy.cpt4lazyserver.entity.ReferralRequest;
-import com.cpt4lazy.cpt4lazyserver.entity.User;
 import com.cpt4lazy.cpt4lazyserver.helper.CPT4LazyUtility;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +17,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
 
@@ -54,7 +51,7 @@ class ReferralRequestServiceTest {
                 "active" );
 
         given(jobReferalPostRepository.findById(referralId)).willReturn(Optional.of(referralPost));
-        given(sequenceGenerator.generateSequence(ReferralRequest.SEQUENCE_NAME)).willReturn(2L);
+        given(sequenceGenerator.generateSequence(ReferralRequest.SEQUENCE_NAME)).willReturn(1L);
         given(referralRequestRepository.save(referralRequest)).willReturn(referralRequest);
         given(jobReferalPostRepository.save(referralPost)).willReturn(referralPost);
 
@@ -63,5 +60,25 @@ class ReferralRequestServiceTest {
 
         assertTrue(referralRequestService.sendReferralRequest(jsonReferralRequest,
                  referralId));
+    }
+
+    @Test
+    void sendReferralRequest_shouldReturnFalseForUnavailableReferral() throws JsonProcessingException {
+        int referralId = 1;
+        ReferralRequest referralRequest = new ReferralRequest("jdeo@email.com", LocalDate.of(2020, 3, 4),
+                "active" );
+        JobReferalPost referralPost = new JobReferalPost("jdeo@email.com", "random text", LocalDate.of(2020, 3, 4),
+                "active" );
+
+        given(jobReferalPostRepository.findById(referralId)).willReturn(Optional.empty());
+        given(sequenceGenerator.generateSequence(ReferralRequest.SEQUENCE_NAME)).willReturn(1L);
+        given(referralRequestRepository.save(referralRequest)).willReturn(referralRequest);
+        given(jobReferalPostRepository.save(referralPost)).willReturn(referralPost);
+
+
+        String jsonReferralRequest = mapper.writeValueAsString(referralRequest);
+
+        assertFalse(referralRequestService.sendReferralRequest(jsonReferralRequest,
+                referralId));
     }
 }
