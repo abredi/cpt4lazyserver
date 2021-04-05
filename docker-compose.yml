@@ -1,0 +1,26 @@
+version: "3"
+services:
+  db:
+    image: mongo:3
+    restart: always
+    container_name: "db"
+    ports:
+      - 27017:27017
+  lazy-server:
+    environment:
+      - DB_SERVER=db
+      - LAZY_DB=cpt4lazyDB
+    build: .
+    container_name: cpt4lazyserver
+    ports:
+      - 9091:8080
+    links:
+      - db
+
+#  lazy-ui:
+#    build: ./lazy-ui
+#    container_name: lazy-ui
+#    ports:
+#      - 3000:3000
+#    links:
+#      - lazy-server
