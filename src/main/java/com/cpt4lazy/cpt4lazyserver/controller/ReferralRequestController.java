@@ -27,17 +27,17 @@ public class ReferralRequestController {
 	private ReferralRequestService referRequestService;
 	
 	@RequestMapping(method=RequestMethod.POST, value="request/{referalId}")
-	public ResponseEntity<?> sendReferralRequest(@RequestBody String referralRequest, @PathVariable int referalId) throws JsonMappingException, JsonProcessingException {
+	public ResponseEntity<?> sendReferralRequest(@RequestBody String referralRequest, @PathVariable int referalId,@RequestHeader("Authorization") String token) throws JsonMappingException, JsonProcessingException {
 		
-		boolean success = referRequestService.sendReferralRequest(referralRequest, referalId);
-		return success ? ResponseEntity.ok("Successfully added experience/s") : ResponseEntity.badRequest().body("Error adding your experience/s");
+		boolean success = referRequestService.sendReferralRequest(referralRequest, referalId, token);
+		return success ? ResponseEntity.ok("Successfully sent the referral request") : ResponseEntity.badRequest().body("Error sending your referral request");
 	
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/request")
 	public ResponseEntity<?> viewAllRequest(@RequestHeader("Authorization") String token) throws JsonMappingException, JsonProcessingException {
 		List<ReferralRequest>  refRequestList = referRequestService.viewAllRequest(token);
-		return refRequestList != null ? ResponseEntity.ok(refRequestList) : ResponseEntity.badRequest().body("Error retrieving your referral request/s");
+		return refRequestList != null ? ResponseEntity.ok(refRequestList) : ResponseEntity.badRequest().body("Error sending your referral request/s");
 	}
 	
 	
