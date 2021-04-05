@@ -26,7 +26,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
  *
  */
 @RestController
-@RequestMapping("/api")
 public class PostController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class.getName());
