@@ -112,7 +112,6 @@ class ExperienceServiceTest {
         assertTrue(experienceService.createExperience(jsonExperience, anyString()));
     }
 
-
     /**
      * updateExperience
      */

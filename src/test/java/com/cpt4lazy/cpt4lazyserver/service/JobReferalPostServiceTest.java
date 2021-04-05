@@ -3,10 +3,7 @@ package com.cpt4lazy.cpt4lazyserver.service;
 import com.cpt4lazy.cpt4lazyserver.dao.JobReferalPostRepository;
 import com.cpt4lazy.cpt4lazyserver.dao.PostRepository;
 import com.cpt4lazy.cpt4lazyserver.dao.ReferralRequestRepository;
-import com.cpt4lazy.cpt4lazyserver.entity.JobReferalPost;
-import com.cpt4lazy.cpt4lazyserver.entity.JobSeeker;
-import com.cpt4lazy.cpt4lazyserver.entity.ReferralRequest;
-import com.cpt4lazy.cpt4lazyserver.entity.User;
+import com.cpt4lazy.cpt4lazyserver.entity.*;
 import com.cpt4lazy.cpt4lazyserver.helper.CPT4LazyUtility;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,7 +25,7 @@ import static org.mockito.BDDMockito.given;
 class JobReferalPostServiceTest {
 
     @MockBean
-    private PostRepository postRepo;
+    private PostRepository postRepository;
 
     @Autowired
     private JobReferalPostService jobReferalPostService;
@@ -45,11 +42,15 @@ class JobReferalPostServiceTest {
     @MockBean
     private ReferralRequestRepository referralRequestRepository;
 
+    @MockBean
+    private SequenceGeneratorService sequenceGenerator;
+
+
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
     void deletePost_shouldReturnTrue() {
-        given(postRepo.findById(anyInt())).willReturn(null);
+        given(postRepository.findById(anyInt())).willReturn(null);
         assertTrue(jobReferalPostService.deletePost(anyInt()));
     }
 
@@ -121,5 +122,75 @@ class JobReferalPostServiceTest {
         String jsonRequest = mapper.writeValueAsString(referralRequest);
         assertFalse(jobReferalPostService.updatePostReferralRequest(jsonRequest,
                 Integer.parseInt(String.valueOf(user.getId())), anyString()));
+    }
+
+    @Test
+    void createPost() throws JsonProcessingException {
+        Alumni alumni = new Alumni("john",
+                "+12341543",
+                "texas",
+                "Alumni",
+                "Java Developer", "Microsoft");
+
+        User user = new User("jdeo@email.com", "password1", alumni);
+
+        Post post = new JobReferalPost();
+        post.setPostText("Java Developer");
+
+        given(cpt4LazyUtility.getEmailFromToken(anyString())).willReturn(user.getEmail());
+        given(customUserDetailService.findUserByEmail(user.getEmail())).willReturn(user);
+        given(cpt4LazyUtility.isALUMNI(user)).willReturn(true);
+
+        given(sequenceGenerator.generateSequence(Post.SEQUENCE_NAME)).willReturn(1L);
+        given(postRepository.save(post)).willReturn(post);
+
+        String jsonPost = mapper.writeValueAsString(post);
+        assertTrue(jobReferalPostService.createPost(jsonPost, anyString()));
+    }
+
+
+    @Test
+    void createPost_shouldReturnFalse() throws JsonProcessingException {
+        JobSeeker jobSeeker = new JobSeeker("john",
+                "+12341543",
+                "texas",
+                "Alumni",
+                "Java Developer", "Microsoft");
+
+        User user = new User("jdeo@email.com", "password1", jobSeeker);
+
+        Post post = new JobReferalPost();
+        post.setPostText("Java Developer");
+
+        given(cpt4LazyUtility.getEmailFromToken(anyString())).willReturn(user.getEmail());
+        given(customUserDetailService.findUserByEmail(user.getEmail())).willReturn(user);
+        given(cpt4LazyUtility.isALUMNI(user)).willReturn(false);
+
+        given(sequenceGenerator.generateSequence(Post.SEQUENCE_NAME)).willReturn(1L);
+        given(postRepository.save(post)).willReturn(post);
+
+        String jsonPost = mapper.writeValueAsString(post);
+        assertFalse(jobReferalPostService.createPost(jsonPost, anyString()));
+    }
+
+    @Test
+    void createPost_shouldReturnFalseForEmpty() throws JsonProcessingException {
+        Alumni alumni = new Alumni("john",
+                "+12341543",
+                "texas",
+                "Alumni",
+                "Java Developer", "Microsoft");
+
+        User user = new User("jdeo@email.com", "password1", alumni);
+
+        given(cpt4LazyUtility.getEmailFromToken(anyString())).willReturn(user.getEmail());
+        given(customUserDetailService.findUserByEmail(user.getEmail())).willReturn(user);
+        given(cpt4LazyUtility.isALUMNI(user)).willReturn(true);
+        String jsonPost = "";
+        assertFalse(jobReferalPostService.createPost(jsonPost, anyString()));
+    }
+
+    @Test
+    void viewPost() {
     }
 }

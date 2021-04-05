@@ -67,7 +67,7 @@ public class JobReferalPostService {
 		jrPost.setDatePosted(LocalDate.now());
 		jrPost.setPostedby(user.getEmail());
 		jrPost.setId(sequenceGenerator.generateSequence(Post.SEQUENCE_NAME));
-			
+
 		postRepo.save(jrPost);
 		return true;
 	}

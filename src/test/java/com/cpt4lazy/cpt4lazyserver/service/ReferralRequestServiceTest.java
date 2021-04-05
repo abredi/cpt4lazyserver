@@ -3,7 +3,9 @@ package com.cpt4lazy.cpt4lazyserver.service;
 import com.cpt4lazy.cpt4lazyserver.dao.JobReferalPostRepository;
 import com.cpt4lazy.cpt4lazyserver.dao.ReferralRequestRepository;
 import com.cpt4lazy.cpt4lazyserver.entity.JobReferalPost;
+import com.cpt4lazy.cpt4lazyserver.entity.JobSeeker;
 import com.cpt4lazy.cpt4lazyserver.entity.ReferralRequest;
+import com.cpt4lazy.cpt4lazyserver.entity.User;
 import com.cpt4lazy.cpt4lazyserver.helper.CPT4LazyUtility;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,11 +15,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -81,4 +86,35 @@ class ReferralRequestServiceTest {
         assertFalse(referralRequestService.sendReferralRequest(jsonReferralRequest,
                 referralId));
     }
+
+
+    @Test
+    void viewAllRequest() {
+        JobSeeker jobSeeker = new JobSeeker("john",
+                "+12341543",
+                "texas",
+                "JobSeeker",
+                "Java Developer", "Microsoft");
+
+        User user = new User("jdeo@email.com", "password1", jobSeeker);
+        user.setId(1);
+        given(cpt4LazyUtility.getEmailFromToken(anyString())).willReturn(anyString());
+        given(customUserDetailService.findUserByEmail(user.getEmail())).willReturn(user);
+
+        given(referralRequestRepository.findAllByEmail(user.getEmail())).willReturn(mock(List.class));
+
+
+        assertThat(referralRequestService.viewAllRequest(anyString())).isInstanceOf(List.class);
+    }
+
+    @Test
+    void viewAllRequest_shouldReturnNull() {
+        final String email = "email@provider.org";
+        given(cpt4LazyUtility.getEmailFromToken(anyString())).willReturn(email);
+        given(customUserDetailService.findUserByEmail(email)).willReturn(null);
+
+        assertNull(referralRequestService.viewAllRequest(anyString()));
+    }
+
+
 }
