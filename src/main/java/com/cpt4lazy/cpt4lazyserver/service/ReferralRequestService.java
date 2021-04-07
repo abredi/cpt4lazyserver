@@ -1,5 +1,18 @@
 package com.cpt4lazy.cpt4lazyserver.service;
 
+<<<<<<< HEAD
+=======
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+>>>>>>> 0b292784a2277421c5cc82fd5444185d59ccf241
 import com.cpt4lazy.cpt4lazyserver.dao.JobReferalPostRepository;
 import com.cpt4lazy.cpt4lazyserver.dao.ReferralRequestRepository;
 import com.cpt4lazy.cpt4lazyserver.entity.JobReferalPost;
@@ -39,7 +52,10 @@ public class ReferralRequestService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReferralRequestService.class.getName()); 
 	
-	public boolean sendReferralRequest(String referralRequest, int referalId) {
+	public boolean sendReferralRequest(String referralRequest, int referalId, String token) {
+		
+		String email = utility.getEmailFromToken(token);
+		//User user = userService.findUserByEmail(email);
 		
 		try {
 			ReferralRequest refRequest = parseReferralRequest(referralRequest);
@@ -50,6 +66,8 @@ public class ReferralRequestService {
 			JobReferalPost jrp = refPost.get();
 			List<ReferralRequest> reqList = jrp.getReferralRequest() == null ? new ArrayList<>() : new ArrayList<>(jrp.getReferralRequest());
 			refRequest.setId(sequenceGenerator.generateSequence(ReferralRequest.SEQUENCE_NAME));
+			refRequest.setRequestorName(email);
+			refRequest.setAskedDate(LocalDate.now());
 			reqList.add(refRequest);
 			refRequestRepo.save(refRequest);
 			jrp.setReferralRequest(reqList);
